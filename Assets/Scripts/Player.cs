@@ -16,11 +16,11 @@ public class Player : MonoBehaviour
 
 	private void Update() // Updates once per frame
 	{
-		if (Input.GetKeyDown("j")) { Shoot(); }
-
 		prevDir = playerDir;
 		playerDir = Utils.Utils.GetPlayerDir(movement); // Store current player direction
-		if (playerDir == null) { playerDir = prevDir; }
+		if (playerDir == null) { playerDir = prevDir; } // Use prevDir if player is not moving
+
+		if (Input.GetKeyDown("j")) { Shoot(); }
 
 		processMovement(); // Animate and normalize movement
 	}
