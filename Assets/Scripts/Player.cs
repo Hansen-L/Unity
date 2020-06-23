@@ -8,7 +8,8 @@ public class Player : MonoBehaviour
 	public Rigidbody2D rb; // RigidBody component is what allows us to move our player
 	public Animator animator;
 	public SpriteRenderer playerRenderer;
-	private String playerDir;
+	private String playerDir = "E";
+	private String prevDir; // Store direction from previous frame
 	public Transform playerTransform;
 
 	Vector2 movement;
@@ -16,6 +17,10 @@ public class Player : MonoBehaviour
 	private void Update() // Updates once per frame
 	{
 		if (Input.GetKeyDown("j")) { Shoot(); }
+
+		prevDir = playerDir;
+		playerDir = Utils.Utils.GetPlayerDir(movement); // Store current player direction
+		if (playerDir == null) { playerDir = prevDir; }
 
 		processMovement(); // Animate and normalize movement
 	}
@@ -51,7 +56,6 @@ public class Player : MonoBehaviour
 
 	void flipSprite() // Flips animations for different directions
 	{
-		String playerDir = Utils.Utils.GetPlayerDir(movement);
 		// Flip sprite as needed
 		switch (playerDir)
 		{
@@ -106,10 +110,48 @@ public class Player : MonoBehaviour
 
 	public void Shoot()
 	{
+		Vector2 bulletDirection = new Vector2(0, 0);
+
 		GameObject bullet = Instantiate(bulletPrefab, bulletSpawnpoint.position, bulletSpawnpoint.rotation);
 		Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>(); // Gets the rigidbody component for the newly spawned prefab
-		rb.AddForce(bulletSpawnpoint.up * bulletForce, ForceMode2D.Impulse);
+
+		// Assign bullet direction based on player direction
+		switch (playerDir)
+		{
+			case "E":
+				bulletDirection.Set(1, 0);
+				break;
+			case "N":
+				bulletDirection.Set(0, 1);
+				break;
+			case "W":
+				bulletDirection.Set(-1, 0);
+				break;
+			case "S":
+				bulletDirection.Set(0, -1);
+				break;
+			case "NE":
+				bulletDirection.Set(1, 1);
+				break;
+			case "NW":
+				bulletDirection.Set(-1, 1);
+				break;
+			case "SW":
+				bulletDirection.Set(-1, -1);
+				break;
+			case "SE":
+				bulletDirection.Set(1, -1);
+				break;
+		}
+
+		bulletDirection = bulletDirection.normalized;
+		Debug.Log(bulletDirection);
+		Debug.Log(playerDir);
+
+		rb.AddForce(bulletDirection * bulletForce, ForceMode2D.Impulse);
 		rb.AddTorque(bulletTorque);
+
+
 	}
-	
+
 }

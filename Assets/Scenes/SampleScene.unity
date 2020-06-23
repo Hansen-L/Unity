@@ -359,7 +359,7 @@ MonoBehaviour:
   bulletSpawnpoint: {fileID: 365961258}
   bulletPrefab: {fileID: 906575198489686101, guid: a95fa51e1960f6244bbd568b513bcd7c,
     type: 3}
-  bulletForce: 5
+  bulletForce: 8
   bulletTorque: 20
 --- !u!50 &664536079
 Rigidbody2D:
