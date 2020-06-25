@@ -11,6 +11,8 @@ public class Player : MonoBehaviour
 	private String playerDir = "E";
 	private String prevDir; // Store direction from previous frame
 	public Transform playerTransform;
+	public float fireRate = 0.5f;
+	private float shootCooldown = 0f; // Tracks the time at which we can shoot again
 
 	Vector2 movement;
 
@@ -20,7 +22,10 @@ public class Player : MonoBehaviour
 		playerDir = Utils.Utils.GetPlayerDir(movement); // Store current player direction
 		if (playerDir == null) { playerDir = prevDir; } // Use prevDir if player is not moving
 
-		if (Input.GetKeyDown("j")) { Shoot(); }
+		if (Input.GetKey("j") && Time.time > shootCooldown) { 
+			Shoot();
+			shootCooldown = Time.time + fireRate; // Set the next time that we're allowed to shoot
+		}
 
 		processMovement(); // Animate and normalize movement
 	}
