@@ -10,10 +10,10 @@ public class AudioManager : MonoBehaviour
 
 	void Awake()
 	{
-		if (instance == null) { instance = this; }
-		else { Destroy(gameObject); }
+		//if (instance == null) { instance = this; }
+		//else { Destroy(gameObject); }
 
-		DontDestroyOnLoad(gameObject);
+		//DontDestroyOnLoad(gameObject);
 
 		foreach (Sound s in sounds)
 		{
@@ -24,10 +24,7 @@ public class AudioManager : MonoBehaviour
 			s.source.pitch = s.pitch;
 			s.source.loop = s.loop;
 		}
-	}
 
-	void Start()
-	{
 		Play("BGM");
 	}
 

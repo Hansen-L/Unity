@@ -11,31 +11,39 @@ public class Player : MonoBehaviour
 	private String playerDir = "E";
 	private String prevDir; // Store direction from previous frame
 	public Transform playerTransform;
-	public float fireRate = 0.5f;
+	public float fireRate = 0.2f; // How many seconds between shots
 	private float shootCooldown = 0f; // Tracks the time at which we can shoot again
 
 	Vector2 movement;
 
-	private void Update() // Updates once per frame
+	private void Update() 
+	// Updates once per frame
 	{
 		prevDir = playerDir;
 		playerDir = Utils.Utils.GetPlayerDir(movement); // Store current player direction
 		if (playerDir == null) { playerDir = prevDir; } // Use prevDir if player is not moving
 
-		if (Input.GetKey("j") && Time.time > shootCooldown) { 
+		if (Input.GetKey("j") && Time.time > shootCooldown) { // GetKey detects key holds, GetKeyDowen does not
 			Shoot();
 			shootCooldown = Time.time + fireRate; // Set the next time that we're allowed to shoot
 		}
 
-		processMovement(); // Animate and normalize movement
+		if (Input.GetKeyDown("k"))
+		{
+			Flash();
+		}
+
+		ProcessMovement(); // Animate and normalize movement
 	}
 
-	void FixedUpdate() // Called 50 times per second by default, used for physics updates
+	void FixedUpdate() 
+	// Called 50 times per second by default, used for physics updates
 	{
 		rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime); // Moves player based on movement vector
 	}
 
-	void processMovement() // Sets the proper animation for the movement and normalizes movement vector
+	void ProcessMovement() 
+	// Sets the proper animation for the movement and normalizes movement vector
 	{
 		movement.x = Input.GetAxisRaw("Horizontal");
 		movement.y = Input.GetAxisRaw("Vertical");
@@ -56,10 +64,11 @@ public class Player : MonoBehaviour
 		{
 			animator.SetBool("isMoving", false);
 		}
-		flipSprite();
+		FlipSprite();
 	}
 
-	void flipSprite() // Flips animations for different directions
+	void FlipSprite() 
+	// Flips animations for different directions
 	{
 		// Flip sprite as needed
 		switch (playerDir)
@@ -107,6 +116,43 @@ public class Player : MonoBehaviour
 		}
 	}
 
+	public Vector2 GetPlayerDirVector()
+	// Return a unit vector in the direction the player is facing
+	{
+		Vector2 vec = new Vector2(0, 0);
+
+		switch (playerDir)
+		{
+			case "E":
+				vec.Set(1, 0);
+				break;
+			case "N":
+				vec.Set(0, 1);
+				break;
+			case "W":
+				vec.Set(-1, 0);
+				break;
+			case "S":
+				vec.Set(0, -1);
+				break;
+			case "NE":
+				vec.Set(1, 1);
+				break;
+			case "NW":
+				vec.Set(-1, 1);
+				break;
+			case "SW":
+				vec.Set(-1, -1);
+				break;
+			case "SE":
+				vec.Set(1, -1);
+				break;
+		}
+
+		vec = vec.normalized; // Normalize so diagonal directions are scaled
+		return vec;
+	}
+
 	//---------------BULLET CODE--------------
 	public Transform bulletSpawnpoint;
 	public GameObject bulletPrefab;
@@ -115,48 +161,23 @@ public class Player : MonoBehaviour
 
 	public void Shoot()
 	{
-		Vector2 bulletDirection = new Vector2(0, 0);
-
 		GameObject bullet = Instantiate(bulletPrefab, bulletSpawnpoint.position, bulletSpawnpoint.rotation);
 		Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>(); // Gets the rigidbody component for the newly spawned prefab
 
-		// Assign bullet direction based on player direction
-		switch (playerDir)
-		{
-			case "E":
-				bulletDirection.Set(1, 0);
-				break;
-			case "N":
-				bulletDirection.Set(0, 1);
-				break;
-			case "W":
-				bulletDirection.Set(-1, 0);
-				break;
-			case "S":
-				bulletDirection.Set(0, -1);
-				break;
-			case "NE":
-				bulletDirection.Set(1, 1);
-				break;
-			case "NW":
-				bulletDirection.Set(-1, 1);
-				break;
-			case "SW":
-				bulletDirection.Set(-1, -1);
-				break;
-			case "SE":
-				bulletDirection.Set(1, -1);
-				break;
-		}
-
-		bulletDirection = bulletDirection.normalized;
-		Debug.Log(bulletDirection);
-		Debug.Log(playerDir);
-
-		rb.AddForce(bulletDirection * bulletForce, ForceMode2D.Impulse);
+		rb.AddForce(GetPlayerDirVector() * bulletForce, ForceMode2D.Impulse);
 		rb.AddTorque(bulletTorque);
 
 
+	}
+
+
+	//----------Flash Code-----------
+	public float flashDist = 5f; // How far to flash
+
+	public void Flash()
+	{
+		Vector3 playerDirVector3D = new Vector3(GetPlayerDirVector().x, GetPlayerDirVector().y, 0);
+		playerTransform.position = transform.position + playerDirVector3D * flashDist;
 	}
 
 }

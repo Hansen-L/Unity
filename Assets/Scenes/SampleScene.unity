@@ -232,7 +232,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &664536074
 GameObject:
@@ -356,11 +356,13 @@ MonoBehaviour:
   animator: {fileID: 664536075}
   playerRenderer: {fileID: 664536076}
   playerTransform: {fileID: 664536077}
+  fireRate: 0.2
   bulletSpawnpoint: {fileID: 365961258}
   bulletPrefab: {fileID: 906575198489686101, guid: a95fa51e1960f6244bbd568b513bcd7c,
     type: 3}
   bulletForce: 8
   bulletTorque: 20
+  flashDist: 5
 --- !u!50 &664536079
 Rigidbody2D:
   serializedVersion: 4
@@ -462,7 +464,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1273974207
 MonoBehaviour:
@@ -477,6 +479,49 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sounds: []
+--- !u!1 &1868451303 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6729903512892888862, guid: 47ab81d470eb84149aeae009ae923b15,
+    type: 3}
+  m_PrefabInstance: {fileID: 8156190249237902632}
+  m_PrefabAsset: {fileID: 0}
+--- !u!50 &1868451304
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1868451303}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 10
+  m_LinearDrag: 2.24
+  m_AngularDrag: 10000
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!70 &1868451305
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1868451303}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.0049202777, y: -0.0049214973}
+  m_Size: {x: 0.734322, y: 0.734322}
+  m_Direction: 0
 --- !u!1 &2008867889
 GameObject:
   m_ObjectHideFlags: 0
@@ -577,7 +622,7 @@ PrefabInstance:
     - target: {fileID: 7495406039099586898, guid: 47ab81d470eb84149aeae009ae923b15,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7495406039099586898, guid: 47ab81d470eb84149aeae009ae923b15,
         type: 3}
@@ -594,5 +639,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1303481608134202214, guid: 47ab81d470eb84149aeae009ae923b15, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 47ab81d470eb84149aeae009ae923b15, type: 3}
