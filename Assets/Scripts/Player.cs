@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 using Utils;
 
@@ -11,8 +12,11 @@ public class Player : MonoBehaviour
 	private String playerDir = "E";
 	private String prevDir; // Store direction from previous frame
 	public Transform playerTransform;
-	public float fireRate = 0.2f; // How many seconds between shots
+	public float shootRate = 0.2f; // How many seconds between shots
 	private float shootCooldown = 0f; // Tracks the time at which we can shoot again
+	public float rocketRate = 1f;
+	private float rocketCooldown = 0f;
+	private Vector2 playerDirVector; // Tracks direction of player each frame
 
 	Vector2 movement;
 
@@ -22,13 +26,19 @@ public class Player : MonoBehaviour
 		prevDir = playerDir;
 		playerDir = Utils.Utils.GetPlayerDir(movement); // Store current player direction
 		if (playerDir == null) { playerDir = prevDir; } // Use prevDir if player is not moving
+		playerDirVector = GetPlayerDirVector();
 
-		if (Input.GetKey("j") && Time.time > shootCooldown) { // GetKey detects key holds, GetKeyDowen does not
+		if (Input.GetKey("j") && Time.time > shootCooldown) { // GetKey detects key holds, GetKeyDown does not
 			Shoot();
-			shootCooldown = Time.time + fireRate; // Set the next time that we're allowed to shoot
+			shootCooldown = Time.time + shootRate; // Set the next time that we're allowed to shoot
+		}
+		if (Input.GetKey("k") && Time.time > rocketCooldown)
+		{
+			Rocket();
+			rocketCooldown = Time.time + rocketRate;
 		}
 
-		if (Input.GetKeyDown("k"))
+		if (Input.GetKeyDown("l"))
 		{
 			Flash();
 		}
@@ -164,20 +174,69 @@ public class Player : MonoBehaviour
 		GameObject bullet = Instantiate(bulletPrefab, bulletSpawnpoint.position, bulletSpawnpoint.rotation);
 		Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>(); // Gets the rigidbody component for the newly spawned prefab
 
-		rb.AddForce(GetPlayerDirVector() * bulletForce, ForceMode2D.Impulse);
+		rb.AddForce(playerDirVector * bulletForce, ForceMode2D.Impulse);
 		rb.AddTorque(bulletTorque);
+	}
 
+	//---------------ROCKET CODE--------------
+	public GameObject rocketPrefab;
+	public float rocketAccel = 10f;
+	public float rocketTorque = 20f;
+	public float rocketMaxDist = 30f; // How far the rocket can go before exploding
+	private float spawnOffsetDist = 0.5f; // How much to offset spawnpoint of rocket
 
+	public void Rocket()
+	{
+		Vector3 offsetVec = new Vector3(playerDirVector.x, playerDirVector.y, 0) * spawnOffsetDist;
+		GameObject rocket = Instantiate(rocketPrefab, bulletSpawnpoint.position + offsetVec, bulletSpawnpoint.rotation);
+		Rigidbody2D rb = rocket.GetComponent<Rigidbody2D>(); // Gets the rigidbody component for the newly spawned prefab
+
+		rb.AddForce(playerDirVector * 3f, ForceMode2D.Impulse);
+		rb.AddTorque(bulletTorque);
+		StartCoroutine(AccelerateRocket(rb, playerDirVector, rocket));
+	}
+
+	IEnumerator AccelerateRocket(Rigidbody2D rb, Vector2 direction, GameObject rocket) // Apply a force each frame to simulate acceleration
+	{
+		Vector2 initialPos = rb.position;
+		while (rb)
+		{
+			rb.AddForce(direction * rocketAccel, ForceMode2D.Force);
+
+			if ((rb.position - initialPos).magnitude > rocketMaxDist) // Explode rocket if reached max dist
+			{
+				rocket.GetComponent<Rocket>().RocketExplode();
+				StartCoroutine(screenShake.Shake(0.3f, 0.3f));
+			}
+			yield return null;
+		}
 	}
 
 
-	//----------Flash Code-----------
-	public float flashDist = 5f; // How far to flash
+	//----------FLASH CODE-----------
+	public float flashDist = 3f; // How far to flash
+	public GameObject flashStartPrefab;
+	public GameObject flashEndPrefab;
+	public ScreenShake screenShake;
 
 	public void Flash()
 	{
-		Vector3 playerDirVector3D = new Vector3(GetPlayerDirVector().x, GetPlayerDirVector().y, 0);
+		// Shake screen
+		StartCoroutine(screenShake.Shake(0.1f, 0.2f));
+
+		// Flash start animation before moving player
+		GameObject flashStart = Instantiate(flashStartPrefab, playerTransform.position, playerTransform.rotation);
+
+		// Move player
+		Vector3 playerDirVector3D = new Vector3(playerDirVector.x, playerDirVector.y, 0);
 		playerTransform.position = transform.position + playerDirVector3D * flashDist;
+
+		// Flash end animation after moving player
+		GameObject flashEnd = Instantiate(flashEndPrefab, playerTransform.position, playerTransform.rotation);
+		flashEnd.transform.parent = gameObject.transform;
+
+		Destroy(flashStart, 2f);
+		Destroy(flashEnd, 2f);
 	}
 
 }

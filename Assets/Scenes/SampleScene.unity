@@ -162,6 +162,7 @@ GameObject:
   - component: {fileID: 519420032}
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
+  - component: {fileID: 519420030}
   m_Layer: 9
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -177,6 +178,18 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_Enabled: 1
+--- !u!114 &519420030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f0575db5afb4df449e42b275d797355, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -204,7 +217,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5.267704
+  orthographic size: 4.9261637
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -227,12 +240,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.25, y: -0.21, z: -10}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_Father: {fileID: 1705392065}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &664536074
 GameObject:
@@ -311,7 +324,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1000
   m_Sprite: {fileID: 6829346604333133494, guid: 8a935d44884ac424999c039849959778,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -337,7 +350,7 @@ Transform:
   m_Children:
   - {fileID: 365961258}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &664536078
 MonoBehaviour:
@@ -356,13 +369,24 @@ MonoBehaviour:
   animator: {fileID: 664536075}
   playerRenderer: {fileID: 664536076}
   playerTransform: {fileID: 664536077}
-  fireRate: 0.2
+  shootRate: 0.2
+  rocketRate: 1
   bulletSpawnpoint: {fileID: 365961258}
-  bulletPrefab: {fileID: 906575198489686101, guid: a95fa51e1960f6244bbd568b513bcd7c,
+  bulletPrefab: {fileID: 4782424598240132955, guid: 78724dda623c66d438407ae7baae8acb,
     type: 3}
   bulletForce: 8
-  bulletTorque: 20
-  flashDist: 5
+  bulletTorque: 5
+  rocketPrefab: {fileID: 6488699421797702467, guid: 409779a8d47a6294eb4558121fa8b4bc,
+    type: 3}
+  rocketAccel: 3
+  rocketTorque: 20
+  rocketMaxDist: 100
+  flashDist: 2
+  flashStartPrefab: {fileID: 7177390767809775608, guid: 7dd048300eafa454e8aebb2bd8ee2396,
+    type: 3}
+  flashEndPrefab: {fileID: 4497616886159099647, guid: 34024085f9156314abad26558e661694,
+    type: 3}
+  screenShake: {fileID: 519420030}
 --- !u!50 &664536079
 Rigidbody2D:
   serializedVersion: 4
@@ -479,6 +503,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sounds: []
+--- !u!1 &1705392064
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1705392065}
+  m_Layer: 0
+  m_Name: Camera Holder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1705392065
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1705392064}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.25, y: -0.21, z: -10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 519420032}
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1868451303 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6729903512892888862, guid: 47ab81d470eb84149aeae009ae923b15,
@@ -505,7 +560,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!70 &1868451305
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -522,6 +577,19 @@ CapsuleCollider2D:
   m_Offset: {x: -0.0049202777, y: -0.0049214973}
   m_Size: {x: 0.734322, y: 0.734322}
   m_Direction: 0
+--- !u!114 &1868451309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1868451303}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9f9d18aa66c8b849be1a2b1ea8063aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  screenShake: {fileID: 519420030}
 --- !u!1 &2008867889
 GameObject:
   m_ObjectHideFlags: 0
@@ -568,7 +636,7 @@ MonoBehaviour:
   sounds:
   - name: BGM
     clip: {fileID: 8300000, guid: fac8ba350d7bb3c4fbcae27c1da967a5, type: 3}
-    volume: 1
+    volume: 0.661
     pitch: 1
     source: {fileID: 0}
     loop: 1

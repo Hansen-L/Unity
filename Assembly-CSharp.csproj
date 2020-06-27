@@ -63,9 +63,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Rocket.cs" />
     <Compile Include="Assets\Scripts\AudioManager.cs" />
     <Compile Include="Assets\Scripts\Bullet.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
+    <Compile Include="Assets\Scripts\RobotCat.cs" />
+    <Compile Include="Assets\Scripts\ScreenShake.cs" />
     <Compile Include="Assets\Scripts\Sound.cs" />
     <Compile Include="Assets\Scripts\Utils.cs" />
     <Reference Include="UnityEngine">
