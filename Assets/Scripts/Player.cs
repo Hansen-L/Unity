@@ -32,7 +32,7 @@ public class Player : MonoBehaviour
 			Shoot();
 			shootCooldown = Time.time + shootRate; // Set the next time that we're allowed to shoot
 		}
-		if (Input.GetKey("k") && Time.time > rocketCooldown)
+		if (Input.GetKey("k") && !Input.GetKey("j") && Time.time > rocketCooldown)
 		{
 			Rocket();
 			rocketCooldown = Time.time + rocketRate;
@@ -187,6 +187,7 @@ public class Player : MonoBehaviour
 
 	public void Rocket()
 	{
+		StartCoroutine(screenShake.Shake(0.3f, 0.01f));
 		Vector3 offsetVec = new Vector3(playerDirVector.x, playerDirVector.y, 0) * spawnOffsetDist;
 		GameObject rocket = Instantiate(rocketPrefab, bulletSpawnpoint.position + offsetVec, bulletSpawnpoint.rotation);
 		Rigidbody2D rb = rocket.GetComponent<Rigidbody2D>(); // Gets the rigidbody component for the newly spawned prefab
@@ -206,7 +207,7 @@ public class Player : MonoBehaviour
 			if ((rb.position - initialPos).magnitude > rocketMaxDist) // Explode rocket if reached max dist
 			{
 				rocket.GetComponent<Rocket>().RocketExplode();
-				StartCoroutine(screenShake.Shake(0.3f, 0.3f));
+				StartCoroutine(screenShake.Shake(0.2f, 0.1f)); // Change this in RobotCat.cs too
 			}
 			yield return null;
 		}

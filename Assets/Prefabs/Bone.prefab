@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6488699421797702477}
   - component: {fileID: 6488699421797702466}
   - component: {fileID: -6324023640808012648}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Bone
   m_TagString: Rocket
   m_Icon: {fileID: 0}

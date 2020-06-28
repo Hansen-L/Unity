@@ -14,7 +14,7 @@ public class RobotCat : MonoBehaviour
 		}
 		else if (collision.collider.tag == "Rocket")
 		{
-			StartCoroutine(screenShake.Shake(0.3f, 0.3f));
+			StartCoroutine(screenShake.Shake(0.2f, 0.1f)); // This can't live on rocket since we can't assign the prefab 
 		}
 	}
 }

@@ -380,7 +380,7 @@ MonoBehaviour:
     type: 3}
   rocketAccel: 3
   rocketTorque: 20
-  rocketMaxDist: 100
+  rocketMaxDist: 8
   flashDist: 2
   flashStartPrefab: {fileID: 7177390767809775608, guid: 7dd048300eafa454e8aebb2bd8ee2396,
     type: 3}
@@ -401,7 +401,7 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
