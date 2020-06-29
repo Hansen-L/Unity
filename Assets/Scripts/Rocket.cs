@@ -11,6 +11,11 @@ public class Rocket : MonoBehaviour
 		RocketExplode();
 	}
 
+	private void OnTriggerEnter2D(Collider2D collision) // For objects that are triggers, don't show physics of impact (like for RopeToy)
+	{
+		RocketExplode();
+	}
+
 	public void RocketExplode()
 	{
 		GameObject effect = Instantiate(rocketEffect, transform.position, Quaternion.identity);
