@@ -391,6 +391,9 @@ GameObject:
   - component: {fileID: 664536079}
   - component: {fileID: 664536078}
   - component: {fileID: 664536080}
+  - component: {fileID: 664536081}
+  - component: {fileID: 664536082}
+  - component: {fileID: 664536083}
   m_Layer: 12
   m_Name: Player
   m_TagString: Untagged
@@ -502,22 +505,7 @@ MonoBehaviour:
   playerTransform: {fileID: 664536077}
   shootRate: 0.4
   rocketRate: 1
-  bulletSpawnpoint: {fileID: 365961258}
-  bulletPrefab: {fileID: 4782424598240132955, guid: 78724dda623c66d438407ae7baae8acb,
-    type: 3}
-  bulletForce: 8
-  bulletTorque: 5
-  rocketPrefab: {fileID: 6488699421797702467, guid: 409779a8d47a6294eb4558121fa8b4bc,
-    type: 3}
-  rocketAccel: 3
-  rocketTorque: 20
-  rocketMaxDist: 8
-  flashDist: 2
-  flashStartPrefab: {fileID: 7177390767809775608, guid: 7dd048300eafa454e8aebb2bd8ee2396,
-    type: 3}
-  flashEndPrefab: {fileID: 4497616886159099647, guid: 34024085f9156314abad26558e661694,
-    type: 3}
-  screenShake: {fileID: 519420030}
+  flashRate: 1
 --- !u!50 &664536079
 Rigidbody2D:
   serializedVersion: 4
@@ -565,6 +553,60 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.47226334, y: 0.49381924}
   m_EdgeRadius: 0
+--- !u!114 &664536081
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 664536074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 525eae0506756ed48bc824e08255280f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletSpawnpoint: {fileID: 365961258}
+  bulletPrefab: {fileID: 4782424598240132955, guid: 78724dda623c66d438407ae7baae8acb,
+    type: 3}
+  bulletForce: 8
+  bulletTorque: 5
+--- !u!114 &664536082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 664536074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa6c59dcc1785374b81a113c4ac6a153, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rocketPrefab: {fileID: 6488699421797702467, guid: 409779a8d47a6294eb4558121fa8b4bc,
+    type: 3}
+  bulletSpawnpoint: {fileID: 365961258}
+  screenShake: {fileID: 519420030}
+  rocketAccel: 5
+  rocketTorque: 3
+  rocketMaxDist: 8
+--- !u!114 &664536083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 664536074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 513f6850d815f48448ea44545e42c121, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashDist: 3
+  flashStartPrefab: {fileID: 7177390767809775608, guid: 7dd048300eafa454e8aebb2bd8ee2396,
+    type: 3}
+  flashEndPrefab: {fileID: 4497616886159099647, guid: 34024085f9156314abad26558e661694,
+    type: 3}
+  screenShake: {fileID: 519420030}
 --- !u!1 &1273974204
 GameObject:
   m_ObjectHideFlags: 0

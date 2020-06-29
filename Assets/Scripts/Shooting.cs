@@ -1,13 +1,13 @@
 ﻿using UnityEngine;
 
-public class ShootLogic : MonoBehaviour 
+public class Shooting : MonoBehaviour 
 {
 
 	//---------------BULLET CODE--------------
 	public Transform bulletSpawnpoint;
 	public GameObject bulletPrefab;
-	public float bulletForce = 10f;
-	public float bulletTorque = 20f;
+	public float bulletForce = 8f;
+	public float bulletTorque = 5f;
 
 	public void Shoot(Vector2 playerDirVector)
 	{
