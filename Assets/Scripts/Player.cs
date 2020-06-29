@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
 	public Rigidbody2D rb; // RigidBody component is what allows us to move our player
 	public Animator animator;
 	public SpriteRenderer playerRenderer;
-	private String playerDir = "E";
+	private String playerDirCardinal = "E";
 	private String prevDir; // Store direction from previous frame
 	public Transform playerTransform;
 	public float shootRate = 0.2f; // How many seconds between shots
@@ -23,16 +23,16 @@ public class Player : MonoBehaviour
 	private void Update() 
 	// Updates once per frame
 	{
-		prevDir = playerDir;
-		playerDir = Utils.Utils.GetPlayerDir(movement); // Store current player direction
-		if (playerDir == null) { playerDir = prevDir; } // Use prevDir if player is not moving
-		playerDirVector = GetPlayerDirVector();
+		prevDir = playerDirCardinal;
+		playerDirCardinal = Utils.PlayerUtils.GetPlayerDir(movement); // Store current player direction
+		if (playerDirCardinal == null) { playerDirCardinal = prevDir; } // Use prevDir if player is not moving
+		playerDirVector = Utils.PlayerUtils.GetPlayerDirVector(playerDirCardinal);
 
 		if (Input.GetKey("j") && Time.time > shootCooldown) { // GetKey detects key holds, GetKeyDown does not
 			Shoot();
 			shootCooldown = Time.time + shootRate; // Set the next time that we're allowed to shoot
 		}
-		if (Input.GetKey("k") && !Input.GetKey("j") && Time.time > rocketCooldown)
+		if (Input.GetKeyDown("k") && Time.time > rocketCooldown)
 		{
 			Rocket();
 			rocketCooldown = Time.time + rocketRate;
@@ -81,7 +81,7 @@ public class Player : MonoBehaviour
 	// Flips animations for different directions
 	{
 		// Flip sprite as needed
-		switch (playerDir)
+		switch (playerDirCardinal)
 		{
 			case "E":
 				playerTransform.rotation = Quaternion.Euler(0f, 0f, 0f);
@@ -126,43 +126,6 @@ public class Player : MonoBehaviour
 		}
 	}
 
-	public Vector2 GetPlayerDirVector()
-	// Return a unit vector in the direction the player is facing
-	{
-		Vector2 vec = new Vector2(0, 0);
-
-		switch (playerDir)
-		{
-			case "E":
-				vec.Set(1, 0);
-				break;
-			case "N":
-				vec.Set(0, 1);
-				break;
-			case "W":
-				vec.Set(-1, 0);
-				break;
-			case "S":
-				vec.Set(0, -1);
-				break;
-			case "NE":
-				vec.Set(1, 1);
-				break;
-			case "NW":
-				vec.Set(-1, 1);
-				break;
-			case "SW":
-				vec.Set(-1, -1);
-				break;
-			case "SE":
-				vec.Set(1, -1);
-				break;
-		}
-
-		vec = vec.normalized; // Normalize so diagonal directions are scaled
-		return vec;
-	}
-
 	//---------------BULLET CODE--------------
 	public Transform bulletSpawnpoint;
 	public GameObject bulletPrefab;
@@ -171,10 +134,17 @@ public class Player : MonoBehaviour
 
 	public void Shoot()
 	{
+		SpawnBullet(playerDirVector);
+		SpawnBullet(Quaternion.Euler(0f, 0f, 5f) * playerDirVector); // Rotates the vector by 10 degrees
+		SpawnBullet(Quaternion.Euler(0f, 0f, -5f) * playerDirVector);
+	}
+
+	public void SpawnBullet(Vector2 bulletDir)
+	{
 		GameObject bullet = Instantiate(bulletPrefab, bulletSpawnpoint.position, bulletSpawnpoint.rotation);
 		Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>(); // Gets the rigidbody component for the newly spawned prefab
 
-		rb.AddForce(playerDirVector * bulletForce, ForceMode2D.Impulse);
+		rb.AddForce(bulletDir * bulletForce, ForceMode2D.Impulse);
 		rb.AddTorque(bulletTorque);
 	}
 

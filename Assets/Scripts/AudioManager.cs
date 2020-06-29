@@ -2,7 +2,7 @@
 using System;
 using System.Collections;
 using UnityEngine.Audio;
-using Utils;
+
 public class AudioManager : MonoBehaviour
 {
 	public Sound[] sounds;
