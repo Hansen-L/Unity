@@ -13,14 +13,14 @@ public class PlayerController : MonoBehaviour
 	private String playerDirCardinal = "E";
 	private String prevDir; // Store direction from previous frame
 	public Transform playerTransform;
-	public float shootRate = 0.2f; // How many seconds between shots
-	private float shootCooldown = 0f; // Tracks the time at which we can shoot again
-	public float rocketRate = 1f;
-	private float rocketCooldown = 0f;
-	public float flashRate = 1f;
-	private float flashCooldown = 0f;
-	public float shieldRate = 1f;
-	private float shieldCooldown = 0f;
+	public float shootCooldown = 0.2f; // How many seconds between shots
+	private float shootTimer = 0f; // Tracks the time at which we can shoot again
+	public float rocketCooldown = 1f;
+	private float rocketTimer = 0f;
+	public float flashCooldown = 1f;
+	private float flashTimer = 0f;
+	public float shieldCooldown = 1f;
+	private float shieldTimer = 0f;
 	private Vector2 playerDirVector; // Tracks direction of player each frame
 
 	Vector2 movement;
@@ -37,24 +37,24 @@ public class PlayerController : MonoBehaviour
 
 
 		//============PLAYER CONTROLS============================
-		if (Input.GetKey("j") && Time.time > shootCooldown) { // GetKey detects key holds, GetKeyDown does not
+		if (Input.GetKey("j") && Time.time > shootTimer) { // GetKey detects key holds, GetKeyDown does not
 			GetComponent<Shooting>().Shoot(playerDirVector); // Get the ShootLogic script
-			shootCooldown = Time.time + shootRate; // Set the next time that we're allowed to shoot
+			shootTimer = Time.time + shootCooldown; // Set the next time that we're allowed to shoot
 		}
-		if (Input.GetKeyDown("k") && Time.time > rocketCooldown)
+		if (Input.GetKeyDown("k") && Time.time > rocketTimer)
 		{
 			GetComponent<Rocketing>().Rocket(playerDirVector);
-			rocketCooldown = Time.time + rocketRate;
+			rocketTimer = Time.time + rocketCooldown;
 		}
-		if (Input.GetKeyDown("i") && Time.time > flashCooldown)
+		if (Input.GetKeyDown("i") && Time.time > flashTimer)
 		{
 			GetComponent<Flashing>().Flash(playerTransform, playerDirVector);
-			flashCooldown = Time.time + flashRate;
+			flashTimer = Time.time + flashCooldown;
 		}
-		if (Input.GetKeyDown("l") && Time.time > shieldCooldown)
+		if (Input.GetKeyDown("l") && Time.time > shieldTimer)
 		{
 			GetComponent<Shielding>().Shield(playerTransform, playerDirVector);
-			shieldCooldown = Time.time + shieldRate;
+			shieldTimer = Time.time + shieldCooldown;
 		}
 
 		ProcessMovement(); // Animate and normalize movement

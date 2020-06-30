@@ -375,10 +375,10 @@ MonoBehaviour:
   playerRenderer: {fileID: 664536076}
   bulletSpawnpoint: {fileID: 365961258}
   playerTransform: {fileID: 664536077}
-  shootRate: 0.4
-  rocketRate: 1
-  flashRate: 1
-  shieldRate: 1
+  shootCooldown: 0.4
+  rocketCooldown: 1
+  flashCooldown: 1
+  shieldCooldown: 1
 --- !u!50 &664536079
 Rigidbody2D:
   serializedVersion: 4
@@ -416,8 +416,8 @@ MonoBehaviour:
     type: 3}
   bulletSpawnpoint: {fileID: 365961258}
   screenShake: {fileID: 519420030}
-  shieldVelocity: 8
-  shieldMaxDist: 2
+  shieldVelocity: 15
+  shieldMaxDist: 2.5
 --- !u!114 &664536081
 MonoBehaviour:
   m_ObjectHideFlags: 0
