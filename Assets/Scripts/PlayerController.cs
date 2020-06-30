@@ -20,6 +20,8 @@ public class PlayerController : MonoBehaviour
 	public float flashCooldown = 1f;
 	private float flashTimer = 0f;
 	public float shieldCooldown = 1f;
+	public String[] controls = new string[4] { "j", "k", "l", "i" };
+	public int playerNum = 1; // player one or player two
 	private float shieldTimer = 0f;
 	private Vector2 playerDirVector; // Tracks direction of player each frame
 
@@ -37,24 +39,24 @@ public class PlayerController : MonoBehaviour
 
 
 		//============PLAYER CONTROLS============================
-		if (Input.GetKey("j") && Time.time > shootTimer) { // GetKey detects key holds, GetKeyDown does not
+		if (Input.GetKey(controls[0]) && Time.time > shootTimer) { // GetKey detects key holds, GetKeyDown does not
 			GetComponent<Shooting>().Shoot(playerDirVector); // Get the ShootLogic script
 			shootTimer = Time.time + shootCooldown; // Set the next time that we're allowed to shoot
 		}
-		if (Input.GetKeyDown("k") && Time.time > rocketTimer)
+		if (Input.GetKeyDown(controls[1]) && Time.time > rocketTimer)
 		{
 			GetComponent<Rocketing>().Rocket(playerDirVector);
 			rocketTimer = Time.time + rocketCooldown;
 		}
-		if (Input.GetKeyDown("i") && Time.time > flashTimer)
-		{
-			GetComponent<Flashing>().Flash(playerTransform, playerDirVector);
-			flashTimer = Time.time + flashCooldown;
-		}
-		if (Input.GetKeyDown("l") && Time.time > shieldTimer)
+		if (Input.GetKeyDown(controls[2]) && Time.time > shieldTimer)
 		{
 			GetComponent<Shielding>().Shield(playerTransform, playerDirVector);
 			shieldTimer = Time.time + shieldCooldown;
+		}
+		if (Input.GetKeyDown(controls[3]) && Time.time > flashTimer)
+		{
+			GetComponent<Flashing>().Flash(playerTransform, playerDirVector);
+			flashTimer = Time.time + flashCooldown;
 		}
 
 		ProcessMovement(); // Animate and normalize movement
@@ -66,11 +68,18 @@ public class PlayerController : MonoBehaviour
 		rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime); // Moves player based on movement vector
 	}
 
-	void ProcessMovement() 
+	void ProcessMovement()
 	// Sets the proper animation for the movement and normalizes movement vector
 	{
-		movement.x = Input.GetAxisRaw("Horizontal");
-		movement.y = Input.GetAxisRaw("Vertical");
+		if (playerNum == 1) {
+			movement.x = Input.GetAxisRaw("Horizontal1");
+			movement.y = Input.GetAxisRaw("Vertical1");
+		}
+		else
+		{
+			movement.x = Input.GetAxisRaw("Horizontal2");
+			movement.y = Input.GetAxisRaw("Vertical2");
+		}
 
 		if (movement.x != 0 || movement.y != 0)
 		{
