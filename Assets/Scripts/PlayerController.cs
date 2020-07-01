@@ -40,12 +40,12 @@ public class PlayerController : MonoBehaviour
 
 		//============PLAYER CONTROLS============================
 		if (Input.GetKey(controls[0]) && Time.time > shootTimer) { // GetKey detects key holds, GetKeyDown does not
-			GetComponent<Shooting>().Shoot(playerDirVector); // Get the ShootLogic script
+			GetComponent<Shooting>().Shoot(playerDirVector, playerNum); // Get the ShootLogic script
 			shootTimer = Time.time + shootCooldown; // Set the next time that we're allowed to shoot
 		}
 		if (Input.GetKeyDown(controls[1]) && Time.time > rocketTimer)
 		{
-			GetComponent<Rocketing>().Rocket(playerDirVector);
+			GetComponent<Rocketing>().Rocket(playerDirVector, playerNum);
 			rocketTimer = Time.time + rocketCooldown;
 		}
 		if (Input.GetKeyDown(controls[2]) && Time.time > shieldTimer)

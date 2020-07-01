@@ -12,11 +12,16 @@ public class Rocketing : MonoBehaviour
 	public float rocketMaxDist = 30f; // How far the rocket can go before exploding
 	private float spawnOffsetDist = 0.5f; // How much to offset spawnpoint of rocket
 
-	public void Rocket(Vector2 playerDirVector)
+	public void Rocket(Vector2 playerDirVector, int playerNum)
 	{
 		StartCoroutine(screenShake.Shake(0.3f, 0.01f));
 		Vector3 offsetVec = new Vector3(playerDirVector.x, playerDirVector.y, 0) * spawnOffsetDist;
 		GameObject rocket = Instantiate(rocketPrefab, bulletSpawnpoint.position + offsetVec, bulletSpawnpoint.rotation);
+
+		// Set different layers for rockets from each player to enable collision between different players' projectiles
+		if (playerNum == 1) { rocket.layer = 11; }
+		else { rocket.layer = 14; }
+
 		Rigidbody2D rb = rocket.GetComponent<Rigidbody2D>(); // Gets the rigidbody component for the newly spawned prefab
 
 		rb.AddForce(playerDirVector * 3f, ForceMode2D.Impulse);
