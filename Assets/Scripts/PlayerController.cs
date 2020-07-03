@@ -70,23 +70,17 @@ public class PlayerController : MonoBehaviour
 		{
 			rb.velocity = movement * moveSpeed;
 		}
-		//rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime); // Moves player based on movement vector
-		
 	}
 
 	// Can this be put in a separate file?
-	public IEnumerator Knockback(float knockbackDuration, float knockbackForce, Transform collidingTransform) // Using coroutine allows for smarter ways of making it last a set amount of time
+	public IEnumerator Knockback(float knockbackDuration, float knockbackForce, Vector2 knockbackDir) // Using coroutine allows for smarter ways of making it last a set amount of time
 	{
 		float knockbackTimer = 0;
 		beingKnockedback = true;
 		while (knockbackTimer < knockbackDuration)
 		{
-			Debug.Log(knockbackTimer);
 			knockbackTimer += Time.deltaTime;
-			// Get vector of collision
-			Vector2 knockbackDir = (collidingTransform.transform.position - playerTransform.position).normalized;
-			//rb.AddForce(-knockbackDir * knockbackForce);
-			rb.velocity = -knockbackDir * knockbackForce;
+			rb.velocity = knockbackDir * knockbackForce;
 			yield return null; // yield for a frame
 		}
 		beingKnockedback = false;

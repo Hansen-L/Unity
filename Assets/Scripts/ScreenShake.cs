@@ -11,7 +11,6 @@ public class ScreenShake : MonoBehaviour
 
 		while (elapsed< duration)
 		{
-			Debug.Log(elapsed);
 			float x = Random.Range(-1f, 1f) * magnitude;
 			float y = Random.Range(-1f, 1f) * magnitude;
 

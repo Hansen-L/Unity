@@ -16,8 +16,9 @@ public class Bullet : MonoBehaviour
 	{
 		if (collision.gameObject.name == "Player1" || collision.gameObject.name == "Player2")
 		{
+			Vector2 knockbackDir = collision.otherRigidbody.velocity.normalized; // Use velocity of bullet to determine knockback
 			PlayerController playerControllerInstance = collision.gameObject.GetComponent<PlayerController>(); // Get access to the script on the player component
-			StartCoroutine(playerControllerInstance.Knockback(knockbackDuration, knockbackForce, this.transform));
+			StartCoroutine(playerControllerInstance.Knockback(knockbackDuration, knockbackForce, knockbackDir));
 		}
 
 		collision.gameObject.GetComponent<Rigidbody2D>().mass -= massReduction; // Reduce mass when hit
@@ -27,7 +28,7 @@ public class Bullet : MonoBehaviour
 
 	public void BulletExplode()
 	{
-		StartCoroutine(screenShake.Shake(0.1f, 1f));
+		//StartCoroutine(screenShake.Shake(0.1f, 1f));
 		GameObject effect = Instantiate(hitEffect, transform.position, Quaternion.identity);
 		Destroy(effect, 5f);
 		Destroy(gameObject, 5f);
