@@ -24,7 +24,6 @@ public class PlayerController : MonoBehaviour
 	public int playerNum = 1; // player one or player two
 	private float shieldTimer = 0f;
 	private Vector2 playerDirVector; // Tracks direction of player each frame
-
 	Vector2 movement;
 
 	private void Update() 
@@ -62,10 +61,35 @@ public class PlayerController : MonoBehaviour
 		ProcessMovement(); // Animate and normalize movement
 	}
 
+	bool beingKnockedback = false;
+
 	void FixedUpdate() 
 	// Called 50 times per second by default, used for physics updates
 	{
-		rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime); // Moves player based on movement vector
+		if (!beingKnockedback) // If we're not being knockbacked, move as normal
+		{
+			rb.velocity = movement * moveSpeed;
+		}
+		//rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime); // Moves player based on movement vector
+		
+	}
+
+	// Can this be put in a separate file?
+	public IEnumerator Knockback(float knockbackDuration, float knockbackForce, Transform collidingTransform) // Using coroutine allows for smarter ways of making it last a set amount of time
+	{
+		float knockbackTimer = 0;
+		beingKnockedback = true;
+		while (knockbackTimer < knockbackDuration)
+		{
+			Debug.Log(knockbackTimer);
+			knockbackTimer += Time.deltaTime;
+			// Get vector of collision
+			Vector2 knockbackDir = (collidingTransform.transform.position - playerTransform.position).normalized;
+			//rb.AddForce(-knockbackDir * knockbackForce);
+			rb.velocity = -knockbackDir * knockbackForce;
+			yield return null; // yield for a frame
+		}
+		beingKnockedback = false;
 	}
 
 	void ProcessMovement()

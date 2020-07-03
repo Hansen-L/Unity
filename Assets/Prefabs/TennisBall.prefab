@@ -146,7 +146,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitEffect: {fileID: 685792194958057921, guid: e2cc501567891a34183f03358d01210e,
     type: 3}
-  massReduction: 0.5
+  massReduction: 0.1
+  knockbackForce: 2
+  knockbackDuration: 1
+  screenShake: {fileID: 0}
 --- !u!82 &3641096532562264048
 AudioSource:
   m_ObjectHideFlags: 0
