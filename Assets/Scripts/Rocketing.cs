@@ -39,7 +39,6 @@ public class Rocketing : MonoBehaviour
 			if ((rb.position - initialPos).magnitude > rocketMaxDist) // Explode rocket if reached max dist
 			{
 				rocket.GetComponent<Rocket>().RocketExplode();
-				StartCoroutine(screenShake.Shake(0.2f, 0.1f)); // Change this in RobotCat.cs too
 			}
 			yield return null;
 		}

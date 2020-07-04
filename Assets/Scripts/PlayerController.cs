@@ -175,4 +175,9 @@ public class PlayerController : MonoBehaviour
 				break;
 		}
 	}
+
+	public void OnDestroy() // When player dies
+	{
+		//
+	}
 }

@@ -12,6 +12,7 @@ public class Shot : MonoBehaviour
 	{
 		screenShake = GameObject.Find("Main Camera").GetComponent<ScreenShake>();
 	}
+
 	private void OnCollisionEnter2D(Collision2D collision) // Collision refers to the object being collided with
 	{
 		if (collision.gameObject.name == "Player1" || collision.gameObject.name == "Player2")
