@@ -76,8 +76,8 @@ public class PlayerController : MonoBehaviour
 	// Can this be put in a separate file?
 	public IEnumerator Knockback(float knockbackDuration, float baseKnockback, Vector2 knockbackDir) // Using coroutine allows for smarter ways of making it last a set amount of time
 	{
-		Debug.Log("Damage percent: " + damagePercent);
-		Debug.Log("Knockback velocity: " + baseKnockback * (Mathf.Pow(damagePercent, 1.15f) + 100f) / 100f);
+		//Debug.Log("Damage percent: " + damagePercent);
+		//Debug.Log("Knockback velocity: " + baseKnockback * (Mathf.Pow(damagePercent, 1.15f) + 100f) / 100f);
 		float knockbackTimer = 0;
 		beingKnockedback = true;
 		while (knockbackTimer < knockbackDuration)
