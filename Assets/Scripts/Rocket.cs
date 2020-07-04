@@ -3,10 +3,10 @@
 public class Rocket : MonoBehaviour // Maybe this should inherit from a class common to shot.cs
 {
 	public GameObject rocketEffect;
-	public float massReduction = 2f; // How much to reduce mass when hit
-	public float knockbackForce = 1f;
-	public float knockbackDuration = 1f;
 	public ScreenShake screenShake;
+	public float baseKnockback = 30f;
+	public float knockbackDuration = 1f;
+	public float damageDealt = 20f;
 	private bool isExploded = false; // Makes sure we don't explode rocket twice
 
 	private void Awake()
@@ -20,10 +20,9 @@ public class Rocket : MonoBehaviour // Maybe this should inherit from a class co
 		{
 			Vector2 knockbackDir = collision.otherRigidbody.velocity.normalized; 
 			PlayerController playerControllerInstance = collision.gameObject.GetComponent<PlayerController>();
-			StartCoroutine(playerControllerInstance.Knockback(knockbackDuration, knockbackForce, knockbackDir));
+			collision.gameObject.GetComponent<PlayerController>().damagePercent += damageDealt;
+			StartCoroutine(playerControllerInstance.Knockback(knockbackDuration, baseKnockback, knockbackDir));
 		}
-
-		collision.gameObject.GetComponent<Rigidbody2D>().mass -= massReduction;
 		RocketExplode();
 	}
 

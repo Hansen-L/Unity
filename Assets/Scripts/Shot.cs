@@ -3,10 +3,10 @@
 public class Shot : MonoBehaviour
 {
 	public GameObject hitEffect;
-	public float massReduction = 0.1f; // How much to reduce mass when hit
-	public float knockbackForce = 1f;
-	public float knockbackDuration = 1f;
 	public ScreenShake screenShake;
+	public float baseKnockback = 10f;
+	public float knockbackDuration = 1f;
+	public float damageDealt = 10f;
 
 	private void Awake()
 	{
@@ -19,10 +19,10 @@ public class Shot : MonoBehaviour
 		{
 			Vector2 knockbackDir = collision.otherRigidbody.velocity.normalized; // Use velocity of bullet to determine knockback
 			PlayerController playerControllerInstance = collision.gameObject.GetComponent<PlayerController>(); // Get access to the script on the player component
-			StartCoroutine(playerControllerInstance.Knockback(knockbackDuration, knockbackForce, knockbackDir));
+			collision.gameObject.GetComponent<PlayerController>().damagePercent += damageDealt;
+			StartCoroutine(playerControllerInstance.Knockback(knockbackDuration, baseKnockback, knockbackDir));
 		}
 
-		collision.gameObject.GetComponent<Rigidbody2D>().mass -= massReduction; // Reduce mass when hit
 		BulletExplode();
 
 	}

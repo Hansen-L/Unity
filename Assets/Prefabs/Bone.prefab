@@ -99,7 +99,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rocketEffect: {fileID: 5348832833889845794, guid: 12d97791149ad0d44b5faf3b18f3bd87,
     type: 3}
-  massReduction: 3
+  screenShake: {fileID: 0}
+  baseKnockback: 2
+  knockbackDuration: 0.5
+  damageDealt: 30
 --- !u!50 &6488699421797702477
 Rigidbody2D:
   serializedVersion: 4

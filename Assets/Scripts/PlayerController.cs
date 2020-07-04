@@ -17,11 +17,12 @@ public class PlayerController : MonoBehaviour
 	public SpriteRenderer playerRenderer;
 	public Transform bulletSpawnpoint;
 	public Transform playerTransform;
+	public float damagePercent = 0f;
+	public String playerDirCardinal = "E";
 
 	private float shootTimer = 0f; // Tracks the time at which we can shoot again
 	private float rocketTimer = 0f;
 	private float flashTimer = 0f;
-	private String playerDirCardinal = "E";
 	private String prevDir; // Store direction from previous frame
 	private float shieldTimer = 0f;
 	private Vector2 playerDirVector; // Tracks direction of player each frame
@@ -73,18 +74,25 @@ public class PlayerController : MonoBehaviour
 	}
 
 	// Can this be put in a separate file?
-	public IEnumerator Knockback(float knockbackDuration, float knockbackForce, Vector2 knockbackDir) // Using coroutine allows for smarter ways of making it last a set amount of time
+	public IEnumerator Knockback(float knockbackDuration, float baseKnockback, Vector2 knockbackDir) // Using coroutine allows for smarter ways of making it last a set amount of time
 	{
+		Debug.Log("Damage percent: " + damagePercent);
+		Debug.Log("Knockback velocity: " + baseKnockback * (Mathf.Pow(damagePercent, 1.15f) + 100f) / 100f);
 		float knockbackTimer = 0;
 		beingKnockedback = true;
 		while (knockbackTimer < knockbackDuration)
 		{
 			knockbackTimer += Time.deltaTime;
-			rb.velocity = knockbackDir * knockbackForce;
+
+			float x = knockbackTimer / knockbackDuration;
+			float velocityTimeScaler = -0.007633539f + 10.39704f * x - 34.54128f * Mathf.Pow(x, 2) + 39.06674f * Mathf.Pow(x, 3) - 14.91403f * Mathf.Pow(x, 4) + 0.5f; // Velocity spikes and decays over time
+			rb.velocity = knockbackDir * velocityTimeScaler * baseKnockback * ( Mathf.Pow(damagePercent, 1.15f) + 100f ) / 100f; // Equation to calculate max velocity
 			yield return null; // yield for a frame
 		}
 		beingKnockedback = false;
 	}
+
+	// equation to scale velocity over time: y = -0.007633539 + 10.39704*x - 34.54128*x^2 + 39.06674*x^3 - 14.91403*x^4
 
 	void ProcessMovement()
 	// Sets the proper animation for the movement and normalizes movement vector
