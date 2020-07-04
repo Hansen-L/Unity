@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public class Shot : MonoBehaviour
 {
 	public GameObject hitEffect;
 	public float massReduction = 0.1f; // How much to reduce mass when hit
@@ -28,10 +28,12 @@ public class Bullet : MonoBehaviour
 
 	public void BulletExplode()
 	{
-		//StartCoroutine(screenShake.Shake(0.1f, 1f));
+		StartCoroutine(screenShake.Shake(0.1f, 0.1f));
 		GameObject effect = Instantiate(hitEffect, transform.position, Quaternion.identity);
+		GetComponent<SpriteRenderer>().enabled = false; // Disable renderer and rb when collided. We can't delete the bullet right away or the coroutine terminates
+		GetComponent<BoxCollider2D>().enabled = false;
 		Destroy(effect, 5f);
-		Destroy(gameObject, 5f);
+		Destroy(gameObject, knockbackDuration + 1f);
 	}
 
 }

@@ -148,7 +148,7 @@ MonoBehaviour:
     type: 3}
   massReduction: 0.1
   knockbackForce: 2
-  knockbackDuration: 1
+  knockbackDuration: 0.5
   screenShake: {fileID: 0}
 --- !u!82 &3641096532562264048
 AudioSource:

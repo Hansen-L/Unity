@@ -6,25 +6,27 @@ using Utils;
 public class PlayerController : MonoBehaviour
 {
 	public float moveSpeed = 5f;
+	public float shootCooldown = 0.2f; // How many seconds between shots
+	public float rocketCooldown = 1f;
+	public float flashCooldown = 1f;
+	public float shieldCooldown = 1f;
+	public int playerNum = 1; // player one or player two
+	public String[] controls = new string[4] { "j", "k", "l", "i" };
 	public Rigidbody2D rb; // RigidBody component is what allows us to move our player
 	public Animator animator;
 	public SpriteRenderer playerRenderer;
 	public Transform bulletSpawnpoint;
+	public Transform playerTransform;
+
+	private float shootTimer = 0f; // Tracks the time at which we can shoot again
+	private float rocketTimer = 0f;
+	private float flashTimer = 0f;
 	private String playerDirCardinal = "E";
 	private String prevDir; // Store direction from previous frame
-	public Transform playerTransform;
-	public float shootCooldown = 0.2f; // How many seconds between shots
-	private float shootTimer = 0f; // Tracks the time at which we can shoot again
-	public float rocketCooldown = 1f;
-	private float rocketTimer = 0f;
-	public float flashCooldown = 1f;
-	private float flashTimer = 0f;
-	public float shieldCooldown = 1f;
-	public String[] controls = new string[4] { "j", "k", "l", "i" };
-	public int playerNum = 1; // player one or player two
 	private float shieldTimer = 0f;
 	private Vector2 playerDirVector; // Tracks direction of player each frame
-	Vector2 movement;
+	private Vector2 movement;
+	private bool beingKnockedback = false;
 
 	private void Update() 
 	// Updates once per frame
@@ -60,8 +62,6 @@ public class PlayerController : MonoBehaviour
 
 		ProcessMovement(); // Animate and normalize movement
 	}
-
-	bool beingKnockedback = false;
 
 	void FixedUpdate() 
 	// Called 50 times per second by default, used for physics updates
