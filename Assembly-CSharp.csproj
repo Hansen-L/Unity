@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\DamageUI.cs" />
+    <Compile Include="Assets\Menu.cs" />
     <Compile Include="Assets\Scripts\ArenaBoundary.cs" />
     <Compile Include="Assets\Scripts\AudioManager.cs" />
     <Compile Include="Assets\Scripts\Flashing.cs" />

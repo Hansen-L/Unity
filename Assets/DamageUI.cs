@@ -31,7 +31,7 @@ public class DamageUI : MonoBehaviour
 
 	private IEnumerator updateDamageAnim() // Animate the damage update
 	{
-		float duration = 0.1f; // Animation total duration
+		float duration = 0.2f; // Animation total duration
 		float step = 0.02f; // Step between animation frames
 
 		for (int i = 0; i <= duration/step; i++) {

@@ -1099,6 +1099,16 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5377850467556706595, guid: bb29bad95fb7d3b439b14eddb696d28d,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 5377850467556706595, guid: bb29bad95fb7d3b439b14eddb696d28d,
+        type: 3}
+      propertyPath: m_fontSizeBase
+      value: 24
+      objectReference: {fileID: 0}
     - target: {fileID: 5377850467556706597, guid: bb29bad95fb7d3b439b14eddb696d28d,
         type: 3}
       propertyPath: player
