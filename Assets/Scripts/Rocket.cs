@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class Rocket : MonoBehaviour // Maybe this should inherit from a class common to shot.cs
 {
@@ -46,7 +47,7 @@ public class Rocket : MonoBehaviour // Maybe this should inherit from a class co
 			{
 				Vector2 knockbackDir = (collider.gameObject.transform.position - this.transform.position).normalized; // Get vector between rocket and player
 				PlayerController playerControllerInstance = collider.gameObject.GetComponent<PlayerController>();
-				collider.gameObject.GetComponent<PlayerController>().damagePercent += damageDealt;
+				collider.gameObject.GetComponent<PlayerController>().damagePercent += (float) Math.Round(damageDealt + UnityEngine.Random.Range(-3f, 3f), 1);
 				StartCoroutine(playerControllerInstance.Knockback(knockbackDuration, baseKnockback, knockbackDir));
 			}
 			else if (collider.gameObject.tag == "Bullet")

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 
 public class Shot : MonoBehaviour
 {
@@ -19,7 +20,7 @@ public class Shot : MonoBehaviour
 		{
 			Vector2 knockbackDir = collision.otherRigidbody.velocity.normalized; // Use velocity of bullet to determine knockback
 			PlayerController playerControllerInstance = collision.gameObject.GetComponent<PlayerController>(); // Get access to the script on the player component
-			collision.gameObject.GetComponent<PlayerController>().damagePercent += damageDealt;
+			collision.gameObject.GetComponent<PlayerController>().damagePercent += (float) Math.Round(damageDealt + UnityEngine.Random.Range(-1f, 1f), 1);
 			StartCoroutine(playerControllerInstance.Knockback(knockbackDuration, baseKnockback, knockbackDir));
 		}
 

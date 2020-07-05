@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
 	public float damagePercent = 0f;
 	public String playerDirCardinal = "E";
 
+	private int stocks = 3;
 	private float shootTimer = 0f; // Tracks the time at which we can shoot again
 	private float rocketTimer = 0f;
 	private float flashTimer = 0f;
@@ -27,7 +28,13 @@ public class PlayerController : MonoBehaviour
 	private float shieldTimer = 0f;
 	private Vector2 playerDirVector; // Tracks direction of player each frame
 	private Vector2 movement;
-	private bool beingKnockedback = false;
+	private bool pauseMovement = false;
+	private Vector2 spawnPoint;
+
+	private void Awake()
+	{
+		spawnPoint = transform.position;
+	}
 
 	private void Update() 
 	// Updates once per frame
@@ -67,7 +74,7 @@ public class PlayerController : MonoBehaviour
 	void FixedUpdate() 
 	// Called 50 times per second by default, used for physics updates
 	{
-		if (!beingKnockedback) // If we're not being knockbacked, move as normal
+		if (!pauseMovement) // If we're not being knockbacked, move as normal
 		{
 			rb.velocity = movement * moveSpeed;
 		}
@@ -79,17 +86,17 @@ public class PlayerController : MonoBehaviour
 		//Debug.Log("Damage percent: " + damagePercent);
 		//Debug.Log("Knockback velocity: " + baseKnockback * (Mathf.Pow(damagePercent, 1.15f) + 100f) / 100f);
 		float knockbackTimer = 0;
-		beingKnockedback = true;
+		pauseMovement = true;
 		while (knockbackTimer < knockbackDuration)
 		{
 			knockbackTimer += Time.deltaTime;
 
 			float x = knockbackTimer / knockbackDuration;
 			float velocityTimeScaler = -0.007633539f + 10.39704f * x - 34.54128f * Mathf.Pow(x, 2) + 39.06674f * Mathf.Pow(x, 3) - 14.91403f * Mathf.Pow(x, 4) + 0.5f; // Velocity spikes and decays over time
-			rb.velocity = knockbackDir * velocityTimeScaler * baseKnockback * ( Mathf.Pow(damagePercent, 1.15f) + 100f ) / 100f; // Equation to calculate max velocity
+			rb.velocity = knockbackDir * velocityTimeScaler * baseKnockback * ( Mathf.Pow(damagePercent, 1.3f) + 100f ) / 100f; // Equation to calculate max velocity
 			yield return null; // yield for a frame
 		}
-		beingKnockedback = false;
+		pauseMovement = false;
 	}
 
 	// equation to scale velocity over time: y = -0.007633539 + 10.39704*x - 34.54128*x^2 + 39.06674*x^3 - 14.91403*x^4
@@ -184,8 +191,9 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
-	public void OnDestroy() // When player dies
+	public void Respawn() // When player dies
 	{
-		//
+		rb.MovePosition(spawnPoint);
+		damagePercent = 0;
 	}
 }
