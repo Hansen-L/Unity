@@ -103,6 +103,7 @@ MonoBehaviour:
   baseKnockback: 2
   knockbackDuration: 0.5
   damageDealt: 30
+  explosionRadius: 1.8
 --- !u!50 &6488699421797702477
 Rigidbody2D:
   serializedVersion: 4

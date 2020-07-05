@@ -50,7 +50,7 @@ GameObject:
   - component: {fileID: 2044850178545280898}
   m_Layer: 12
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -174,20 +174,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
-  rb: {fileID: 2044850178545280925}
-  animator: {fileID: 2044850178545280921}
-  playerRenderer: {fileID: 2044850178545280926}
-  bulletSpawnpoint: {fileID: 2044850177710867384}
-  playerTransform: {fileID: 2044850178545280927}
   shootCooldown: 0.4
   rocketCooldown: 1
   flashCooldown: 1
-  shieldCooldown: 1
+  shieldCooldown: 3
+  playerNum: 1
   controls:
   - j
   - k
   - l
   - i
+  rb: {fileID: 2044850178545280925}
+  animator: {fileID: 2044850178545280921}
+  playerRenderer: {fileID: 2044850178545280926}
+  bulletSpawnpoint: {fileID: 2044850177710867384}
+  playerTransform: {fileID: 2044850178545280927}
+  damagePercent: 0
+  playerDirCardinal: E
 --- !u!114 &2044850178545280899
 MonoBehaviour:
   m_ObjectHideFlags: 0

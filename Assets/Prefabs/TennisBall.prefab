@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2041759869960986006}
   - component: {fileID: 264947886962090415}
   - component: {fileID: 3641096532562264048}
-  m_Layer: 11
+  m_Layer: 10
   m_Name: TennisBall
   m_TagString: Bullet
   m_Icon: {fileID: 0}
@@ -146,10 +146,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitEffect: {fileID: 685792194958057921, guid: e2cc501567891a34183f03358d01210e,
     type: 3}
-  massReduction: 0.1
-  knockbackForce: 2
-  knockbackDuration: 0.5
   screenShake: {fileID: 0}
+  baseKnockback: 1
+  knockbackDuration: 0.5
+  damageDealt: 10
 --- !u!82 &3641096532562264048
 AudioSource:
   m_ObjectHideFlags: 0

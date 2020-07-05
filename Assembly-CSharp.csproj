@@ -63,11 +63,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\DamageUI.cs" />
-    <Compile Include="Assets\Menu.cs" />
     <Compile Include="Assets\Scripts\ArenaBoundary.cs" />
     <Compile Include="Assets\Scripts\AudioManager.cs" />
+    <Compile Include="Assets\Scripts\DamageUI.cs" />
     <Compile Include="Assets\Scripts\Flashing.cs" />
+    <Compile Include="Assets\Scripts\Menu.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\RobotCat.cs" />
     <Compile Include="Assets\Scripts\Rocket.cs" />
