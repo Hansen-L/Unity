@@ -19,8 +19,8 @@ public class PlayerController : MonoBehaviour
 	public Transform playerTransform;
 	public float damagePercent = 0f;
 	public String playerDirCardinal = "E";
+	public int stocks = 3;
 
-	private int stocks = 3;
 	private float shootTimer = 0f; // Tracks the time at which we can shoot again
 	private float rocketTimer = 0f;
 	private float flashTimer = 0f;
@@ -191,9 +191,26 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
-	public void Respawn() // When player dies
+	public void Death() // When player dies
 	{
-		rb.MovePosition(spawnPoint);
-		damagePercent = 0;
+		if (stocks > 1)
+		{
+			rb.MovePosition(spawnPoint);
+			damagePercent = 0;
+			stocks -= 1;
+		}
+		else // If the player is out of stocks
+		{
+			stocks -= 1;
+			if (name == "Player1")
+			{
+				Debug.Log("Player2 Wins!");
+			}
+			else if (name == "Player2")
+			{
+				Debug.Log("Player1 Wins!");
+			}
+			Destroy(gameObject);
+		}
 	}
 }

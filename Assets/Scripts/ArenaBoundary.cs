@@ -7,7 +7,7 @@ public class ArenaBoundary : MonoBehaviour
 	{
 		if (collision.gameObject.tag == "Player")
 		{
-			collision.gameObject.GetComponent<PlayerController>().Respawn();
+			collision.gameObject.GetComponent<PlayerController>().Death();
 		}
 	}
 }
