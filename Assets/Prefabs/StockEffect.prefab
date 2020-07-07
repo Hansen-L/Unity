@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4394369924098493032}
   - component: {fileID: -1739911059374244758}
   m_Layer: 5
-  m_Name: explosion-1_0
+  m_Name: StockEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -113,7 +113,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 69fb703c5fca4e24d85b7e2d19034525, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 315e9ec27dd687b4cbe55acafb33498f, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1

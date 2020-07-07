@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using System.Collections;
 
-public class DamageUI : MonoBehaviour 
+public class DamageHUD : MonoBehaviour 
 {
 	public TextMeshProUGUI damageText;
 	public PlayerController player;

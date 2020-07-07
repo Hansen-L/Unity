@@ -785,6 +785,11 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 346190667}
+    - target: {fileID: 6632967721988872922, guid: bb29bad95fb7d3b439b14eddb696d28d,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 346190667}
     - target: {fileID: 8111306184839307517, guid: bb29bad95fb7d3b439b14eddb696d28d,
         type: 3}
       propertyPath: m_textInfo.characterCount
@@ -1276,6 +1281,11 @@ PrefabInstance:
       value: 24
       objectReference: {fileID: 0}
     - target: {fileID: 5377850467556706597, guid: bb29bad95fb7d3b439b14eddb696d28d,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 251327324}
+    - target: {fileID: 6632967721988872922, guid: bb29bad95fb7d3b439b14eddb696d28d,
         type: 3}
       propertyPath: player
       value: 
